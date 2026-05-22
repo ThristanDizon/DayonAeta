@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+  <title>Donate</title>
+  <link rel="shortcut icon" href="Logo.png" type="image/x-icon">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+  </head>
+  <style>
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+    @import url("https://fonts.googleapis.com/css?family=Unbounded:700|Poppins:400,700,800|Inter:400,700");
+
+    * {
+      -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+    }
+    button:focus-visible {
+      outline: 2px solid #4a90e2 !important;
+      outline: -webkit-focus-ring-color auto 5px !important;
+    }
+    a {
+      text-decoration: none;
+    }
+    body {
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── Page wrapper ── */
+    .donate {
+      background-color: #ffffff;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ── Background image + overlay ── */
+    .donate .image {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .donate .rectangle {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: #00000075;
+      z-index: 1;
+    }
+
+    /* ── Everything above the background ── */
+    .page-content {
+      position: relative;
+      z-index: 2;
+      padding: 20px 3.4% 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ── Header row ── */
+    .header-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-height: 60px;
+    }
+    .donate .back-button {
+      flex-shrink: 0;
+      width: 47px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #603b09;
+      border-radius: 5px;
+      box-shadow: 5px 4px 4px #00000040;
+      transition: transform 0.2s ease;
+    }
+    .donate .back-button:hover { transform: translateX(-3px); }
+    .donate .arrow-back {
+      filter: invert(1);
+      width: 20px;
+      height: 20px;
+    }
+    .donate .DAYON-AETA {
+      font-family: "Unbounded", Helvetica;
+      font-weight: 700;
+      color: transparent;
+      font-size: clamp(20px, 3vw, 40px);
+      letter-spacing: 0;
+      line-height: normal;
+      margin-left: auto;
+    }
+    .donate .text-wrapper  { color: #603b09; }
+    .donate .span          { color: #ffffff; }
+
+    /* ── Two-column main layout ── */
+    .main-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* ── Left panel card ── */
+    .left-panel {
+      background-color: #e5e1da;
+      border-radius: 10px;
+      box-shadow: 5px 5px 50px #000000e8;
+      padding: 24px 20px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    /* QR / GCash image */
+    .donate .gemini-generated {
+      width: 55%;
+      max-width: 220px;
+      height: auto;
+      display: block;
+      margin: 0 auto 8px;
+    }
+
+    .qr-meta {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .donate .text-wrapper-13 {
+      font-family: "Poppins", Helvetica;
+      font-weight: 400;
+      color: #000000;
+      font-size: clamp(9px, 1vw, 12px);
+    }
+    .donate .account-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .donate .text-wrapper-14 {
+      font-family: "Poppins", Helvetica;
+      font-weight: 700;
+      color: #1564ca;
+      font-size: clamp(9px, 1vw, 12px);
+    }
+    .donate .mingcute-pencil-line {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+    .acct-info {
+      width: 100%;
+      text-align: center;
+      margin-top: 4px;
+    }
+    .donate .p,
+    .donate .text-wrapper-2 {
+      font-family: "Poppins", Helvetica;
+      font-weight: 400;
+      color: #000000;
+      font-size: clamp(9px, 0.9vw, 12px);
+      line-height: 1.6;
+    }
+
+    /* "YOUR INFORMATION" header bar */
+    .donate .rectangle-12 {
+      width: 100%;
+      background-color: #603b09;
+      padding: 10px 0;
+      margin-top: 24px;
+      border-radius: 0;
+    }
+    .donate .text-wrapper-11 {
+      font-family: "Inter", Helvetica;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: clamp(13px, 1.4vw, 18px);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* Form grid inside left panel */
+    .form-section {
+      width: 100%;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .form-label {
+      font-family: "Inter", Helvetica;
+      font-weight: 400;
+      color: #000000;
+      font-size: clamp(12px, 1.2vw, 16px);
+      margin-bottom: 6px;
+    }
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+    .form-row input,
+    .form-section input {
+      flex: 1;
+      min-width: 0;
+      padding: 8px 10px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 5px 4px 4px #00000040;
+      border: none;
+      font-family: "Inter", Helvetica;
+      font-weight: 400;
+      font-size: clamp(10px, 1vw, 14px);
+      color: #797272;
+      width: 100%;
+      height: 35px;
+    }
+    .form-row input::placeholder,
+    .form-section input::placeholder {
+      color: #797272;
+      opacity: 1;
+    }
+    .form-row input:focus,
+    .form-section input:focus {
+      outline: 2px solid #603b09;
+      outline-offset: 2px;
+    }
+
+    /* Action buttons */
+    .button-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .donate .DONATE,
+    .donate .contact-us {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #603b09;
+      border-radius: 10px;
+      box-shadow: 5px 4px 4px #00000040;
+      transition: transform 0.2s, box-shadow 0.2s;
+      padding: 0 20px;
+      height: 45px;
+      min-width: 120px;
+      cursor: pointer;
+    }
+    .donate .DONATE:hover,
+    .donate .contact-us:hover {
+      transform: translateY(-3px);
+      box-shadow: 5px 8px 15px #00000060;
+      background-color: #7a4a0b;
+    }
+    .donate .DONATE:active,
+    .donate .contact-us:active {
+      transform: translateY(0);
+      box-shadow: 3px 3px 3px #00000040;
+    }
+    .donate .DONATE:focus-visible,
+    .donate .contact-us:focus-visible {
+      outline: 2px solid #4a90e2;
+      outline-offset: 3px;
+    }
+    .donate .text-wrapper-12,
+    .donate .text-wrapper-15 {
+      font-family: "Poppins", Helvetica;
+      font-weight: 800;
+      color: #ffffff;
+      font-size: clamp(11px, 1.1vw, 15px);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    /* ── Right panel card ── */
+    .right-panel {
+      background-color: #e5e1da;
+      border-radius: 10px;
+      box-shadow: 5px 5px 50px #000000e8;
+      padding: 24px 20px;
+    }
+    .donate .while-monetary {
+      font-family: "Inter", Helvetica;
+      font-weight: 400;
+      color: #000000;
+      font-size: clamp(11px, 1.1vw, 15px);
+      line-height: 1.65;
+    }
+    .donate .text-wrapper-4  { font-family: "Inter", Helvetica; font-weight: 400; color: #000000; }
+    .donate .text-wrapper-5  { font-weight: 700; }
+
+    /* ─────────────────────────────────────────
+       TABLET  (≤ 900px)
+    ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .main-columns {
+        grid-template-columns: 1fr;
+      }
+      .donate .gemini-generated {
+        max-width: 180px;
+      }
+      .donate .DAYON-AETA {
+        font-size: clamp(18px, 4vw, 30px);
+      }
+    }
+
+    /* ─────────────────────────────────────────
+       MOBILE  (≤ 600px)
+    ───────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .page-content {
+        padding: 14px 4% 48px;
+        gap: 14px;
+      }
+      .header-row {
+        min-height: 48px;
+      }
+      .donate .DAYON-AETA {
+        font-size: clamp(16px, 5vw, 24px);
+      }
+      .form-row {
+        flex-direction: column;
+        gap: 8px;
+      }
+      /* Keep Region/Province side-by-side even on small screens */
+      .form-row.two-col {
+        flex-direction: row;
+      }
+      /* City / Barangay / ZIP — stack on very small screens */
+      .form-row.three-col {
+        flex-direction: column;
+      }
+      .button-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .donate .DONATE,
+      .donate .contact-us {
+        width: 100%;
+        min-width: unset;
+      }
+      .donate .gemini-generated {
+        max-width: 150px;
+      }
+      .donate .while-monetary {
+        font-size: clamp(12px, 3.5vw, 15px);
+      }
+    }
+
+    /* ── Extra-small (≤ 380px): keep Region+Province stacked too ── */
+    @media (max-width: 380px) {
+      .form-row.two-col {
+        flex-direction: column;
+      }
+    }
+
+    /* Hide the old off-screen asset images (they were at top:-6964px) */
+    .donate .img,
+    .donate .element-2,
+    .donate .element-3,
+    .donate .element-4,
+    .donate .element-5,
+    .donate .element-6,
+    .donate .element-7,
+    .donate .element-8,
+    .donate .element-9,
+    .donate .element-10 {
+      display: none;
+    }
+  </style>
+
+  <body>
+    <div class="donate">
+      <!-- Background -->
+      <img class="image" src="https://c.animaapp.com/mim4ihv44M9Lie/img/image-15.png" alt="" />
+      <div class="rectangle"></div>
+
+      <!-- Page content -->
+      <div class="page-content">
+
+        <!-- Header -->
+        <div class="header-row">
+          <a class="back-button" href="GetInvolvedPage.html">
+            <img class="arrow-back" src="https://c.animaapp.com/milz1479ckltbr/img/arrow-back-streamline-ionic-filled.svg" alt="Back" />
+          </a>
+          <p class="DAYON-AETA">
+            <span class="text-wrapper">D</span><span class="span">AYON </span><span class="text-wrapper">A</span><span class="span">ETA</span>
+          </p>
+        </div>
+
+        <!-- Main two-column layout -->
+        <div class="main-columns">
+
+          <!-- LEFT PANEL -->
+          <div class="left-panel">
+
+            <!-- QR / GCash image -->
+            <img class="gemini-generated" src="https://c.animaapp.com/mioqon0xPHkHXj/img/gemini-generated-image-p4hp92p4hp92p4hp-removebg-preview-1.png" alt="GCash QR Code" />
+
+            <!-- Transfer info -->
+            <div class="qr-meta">
+              <div class="text-wrapper-13">Transfer fees may apply.</div>
+              <div class="account-name-row">
+                <div class="text-wrapper-14">DA**N A*TA</div>
+                <img class="mingcute-pencil-line" src="https://c.animaapp.com/mim4ihv44M9Lie/img/mingcute-pencil-line.svg" alt="" />
+              </div>
+            </div>
+
+            <!-- Account details -->
+            <div class="acct-info">
+              <p class="p">Mobile No.: +63 912 345 ••••</p>
+              <div class="text-wrapper-2">User ID: ••••••••••••••1AB2CD</div>
+            </div>
+
+            <!-- YOUR INFORMATION header -->
+            <div class="rectangle-12">
+              <div class="text-wrapper-11">YOUR INFORMATION:</div>
+            </div>
+
+            <!-- Form -->
+            <div class="form-section">
+
+              <!-- NAME -->
+              <div>
+                <div class="form-label">NAME:</div>
+                <div class="form-row">
+                  <input type="text" placeholder="First name *" />
+                  <input type="text" placeholder="Last name *" />
+                </div>
+              </div>
+
+              <!-- ADDRESS -->
+              <div>
+                <div class="form-label">ADDRESS:</div>
+                <div class="form-row two-col">
+                  <input type="text" placeholder="Region *" />
+                  <input type="text" placeholder="Province *" />
+                </div>
+                <div class="form-row three-col" style="margin-top:10px;">
+                  <input type="text" placeholder="City/Municipality *" />
+                  <input type="text" placeholder="Barangay *" />
+                  <input type="text" placeholder="ZIP/Postal Code *" />
+                </div>
+              </div>
+
+              <!-- PHONE & EMAIL -->
+              <div>
+                <div class="form-row">
+                  <div style="flex:1;min-width:0;">
+                    <div class="form-label">PHONE NUMBER:</div>
+                    <input type="tel" placeholder="+639-000-000-0000 *" style="width:100%;" />
+                  </div>
+                  <div style="flex:1;min-width:0;">
+                    <div class="form-label">E-MAIL ADDRESS:</div>
+                    <input type="email" placeholder="emailaddress@gmail.com *" style="width:100%;" />
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /form-section -->
+
+            <!-- Action Buttons -->
+            <div class="button-row">
+              <a class="DONATE"><div class="text-wrapper-12">DONATE</div></a>
+              <a class="contact-us" href="ContactsPage.html"><div class="text-wrapper-15">CONTACT US</div></a>
+            </div>
+
+          </div><!-- /left-panel -->
+
+          <!-- RIGHT PANEL -->
+          <div class="right-panel">
+            <p class="while-monetary">
+              <span class="text-wrapper-4">While monetary contributions are always appreciated and help us cover essential operating costs, we also gratefully accept donations of physical items!<br /><br />If you are interested in donating material goods (such as clothing, school supplies, equipment, etc.) instead of or in addition to a financial donation, please note the following:<br /><br /></span>
+              <span class="text-wrapper-5">Contact Us First:</span>
+              <span class="text-wrapper-4"> Please do not mail physical items before coordinating with our team.<br /><br /></span>
+              <span class="text-wrapper-5">Item Needs:</span>
+              <span class="text-wrapper-4"> To ensure your donation meets our current and most urgent needs, please contact us at </span>
+              <span class="text-wrapper-5">dayonaetafoundation@gmail.org</span>
+              <span class="text-wrapper-4"> or call us at </span>
+              <span class="text-wrapper-5">+63 912 345 6789</span>
+              <span class="text-wrapper-4"> to discuss the items you wish to donate.<br /><br /></span>
+              <span class="text-wrapper-5">Drop-off/Collection:</span>
+              <span class="text-wrapper-4"> We will arrange a convenient time and location for item drop-off or collection once the donation is confirmed.<br /><br />Thank you for your generosity! Your support in any form makes a huge difference.</span>
+            </p>
+          </div><!-- /right-panel -->
+
+        </div><!-- /main-columns -->
+
+      </div><!-- /page-content -->
+    </div><!-- /donate -->
+  </body>
+</html>
